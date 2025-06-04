@@ -21,9 +21,13 @@ class TextSearcher(object):
     def search(self, word: str, context: int = 0) -> list:
         result = []
         for line in self.file:
-            line = line.strip()
-            if word in line:
+            words = line.split(' ')
+            if word in words:
                 for x in range(line.count(word)):
-                    result.append(word)
+                    if context > 0:
+                        loc = words.index(word)
+                        result.append(' '.join(words[loc - context: loc + context + 1]))
+                    else:
+                        result.append(word)
 
         return result
