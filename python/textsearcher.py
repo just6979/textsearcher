@@ -21,6 +21,7 @@ class TextSearcher(object):
     def search(self, word: str, context: int = 0) -> list:
         result = []
         for line in self.file:
+            line = line.strip()
             words = line.split(' ')
             if word in words:
                 for x in range(line.count(word)):
