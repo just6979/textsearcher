@@ -19,4 +19,11 @@ class TextSearcher(object):
         return True
 
     def search(self, word: str, context: int = 0) -> list:
-        pass
+        for line in self.file:
+            line = line.strip()
+            if word in line:
+                print(line)
+                print(word)
+                return [word]
+
+        return []
