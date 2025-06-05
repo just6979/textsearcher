@@ -28,7 +28,7 @@ class TextSearcher(object):
             # clean the line, get each word, clean the words, skip ''
             temp_words = [word.strip() for word in line.strip().split() if word != '']
             # make a shadow word list in all lowercase
-            temp_shadow_words = [word.lower() for word in temp_words]
+            temp_shadow_words = [word.lower().strip().strip('"').strip('.') for word in temp_words]
             # save the line's words
             words.extend(temp_words)
             shadow_words.extend(temp_shadow_words)
