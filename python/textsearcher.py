@@ -22,20 +22,22 @@ class TextSearcher(object):
         result = []
         lines = self.file.readlines()
         words = []
-        for line in lines:
-            temp_words = [word.strip() for word in line.strip().split()]
-            while '' in temp_words:
-                temp_words.remove('')
-            words.extend(temp_words)
+        shadow_words = []
 
-        print(words)
+        for line in lines:
+            # clean the line, get each word, clean the words, skip ''
+            temp_words = [word.strip() for word in line.strip().split() if word != '']
+            # make a shadow word list in all lowercase
+            temp_shadow_words = [word.lower() for word in temp_words]
+            # save the line's words
+            words.extend(temp_words)
+            shadow_words.extend(temp_shadow_words)
 
         start_loc = 0
-        matches_remaining = True
-
-        while matches_remaining:
+        while True:
+            clean_word = word.strip().strip('"').strip('.').lower()
             try:
-                match_loc = words.index(word, start_loc)
+                match_loc = shadow_words.index(clean_word, start_loc)
             except ValueError:
                 break
 
